@@ -42,6 +42,24 @@ services:
     networks:
       - asa-network
 
+  dns:
+    build:
+      context: ./dns
+      dockerfile: Dockerfile.ds01
+    image: dns
+    container_name: dns
+    hostname: ns1.pa.br
+    restart: always
+    tty: true
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+    volumes:
+      - ./dns/etc:/etc/bind
+    networks:
+      - asa-network
+
+
 #Docker Networks
 networks:
   asa-network:
